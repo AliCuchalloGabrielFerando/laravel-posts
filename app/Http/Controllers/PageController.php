@@ -9,6 +9,21 @@ class PageController extends Controller
 {
     public function home(){
         $posts = Post::published()->paginate(1);
-    return view('welcome',['posts'=>$posts]);
+    return view('pages.home',['posts'=>$posts]);
+    }
+
+    public function about()
+    {
+        return view('pages.about');
+    }
+
+    public function archive()
+    {
+        return view('pages.archive');
+    }
+
+    public function contact()
+    {
+        return view('pages.contact');
     }
 }

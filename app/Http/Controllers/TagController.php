@@ -8,6 +8,6 @@ class TagController extends Controller
 {
     public function show(Tag $tag)
     {
-        return view('welcome',['title'=>"Estas son las publicaciones del Tag: {$tag->name}",'posts'=> $tag->posts()->paginate(1)]);
+        return view('pages.home',['title'=>"Estas son las publicaciones del Tag: {$tag->name}",'posts'=> $tag->posts()->paginate(1)]);
     }
 }

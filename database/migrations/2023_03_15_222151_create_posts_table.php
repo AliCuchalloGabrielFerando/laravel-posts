@@ -20,6 +20,7 @@ return new class extends Migration
             $table->mediumText('iframe')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->unsignedInteger('category_id')->nullable();
+            $table->unsignedInteger('user_id');
             $table->timestamps();
         });
     }

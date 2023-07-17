@@ -22,6 +22,7 @@ class PostSeeder extends Seeder
         $post->body = '<p>Contenido de mi primer Post</p>';
         $post->published_at = Carbon::now()->subDays(10);
         $post->category_id = 1;
+        $post->user_id = 1;
         $post->save();
 
         $post = new Post;
@@ -30,13 +31,16 @@ class PostSeeder extends Seeder
         $post->body = '<p>Contenido de mi segundo Post</p>';
         $post->published_at = Carbon::now()->subDays(5);
         $post->category_id = 2;
+        $post->user_id = 1;
         $post->save();
+
         $post = new Post;
         $post->title = 'mi tercer post';
         $post->excerpt = 'extracto de mi tercer post';
         $post->body = '<p>Contenido de mi tercer Post</p>';
         $post->published_at = Carbon::now()->subDays(3);
         $post->category_id = 1;
+        $post->user_id = 1;
         $post->save();
 
         $post = new Post;
@@ -45,6 +49,7 @@ class PostSeeder extends Seeder
         $post->body = '<p>Contenido de mi cuarta Post</p>';
         $post->published_at = Carbon::now()->subDays(1);
         $post->category_id = 2;
+        $post->user_id = 1;
         $post->save();
     }
 }

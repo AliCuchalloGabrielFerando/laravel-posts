@@ -8,6 +8,6 @@ class CategoryController extends Controller
 {
     public function show(Category $category)
     {
-        return view('welcome',['title'=>"Estas son las publicaciones de la Categoria: {$category->name}",'posts'=> $category->posts()->paginate(1)]);
+        return view('pages.home',['title'=>"Estas son las publicaciones de la Categoria: {$category->name}",'posts'=> $category->posts()->paginate(1)]);
     }
 }

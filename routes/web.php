@@ -22,7 +22,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [PageController::class, 'home']);
+Route::get('/', [PageController::class, 'home'])->name('pages.home');
+Route::get('about',[PageController::class,'about'])->name('pages.about');
+Route::get('archive',[PageController::class,'archive'])->name('pages.archive');
+Route::get('contact',[PageController::class,'contact'])->name('pages.contact');
+
 Route::get('blog/{post}',[PostsController::class,'show'])->name('posts.show');
 Route::get('categorias/{category}',[CategoryController::class,'show'])->name('categories.show');
 Route::get('tags/{tag}',[TagController::class,'show'])->name('tags.show');

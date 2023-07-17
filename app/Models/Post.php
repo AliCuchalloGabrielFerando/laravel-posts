@@ -14,7 +14,7 @@ use Carbon\Carbon;
 class Post extends Model
 {
     use HasFactory;
-    protected $fillable = ['title','url','body', 'iframe', 'excerpt','published_at','category_id'];
+    protected $fillable = ['title','url','body', 'iframe', 'excerpt','published_at','category_id','user_id'];
     protected $casts = ['published_at'=>'datetime'];
 
     public function getRouteKeyName(){
@@ -30,11 +30,20 @@ class Post extends Model
     public function photos(){
         return $this->hasMany(Photo::class);
     }
+    public function owner(){
+        return $this->belongsTo(User::class,'user_id');
+    }
 
-    public function scopePublished(Builder $query){
+    public function scopePublished(Builder $query)
+    {
         $query->whereNotNull('published_at')
         ->where('published_at','<=',Carbon::now())
         ->latest('published_at');
+    }
+
+    public function isPublished()
+    {
+        return ! is_null( $this->published_at) && $this->published_at < today();
     }
 
     public function syncTags($tags)
