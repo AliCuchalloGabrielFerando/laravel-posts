@@ -199,8 +199,8 @@ desired effect
                                     <img src="/adminlte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                                     <p>
-                                        Alexander Pierce - Web Developer
-                                        <small>Member since Nov. 2012</small>
+                                        {{auth()->user()->name}} - {{optional(auth()->user()->roles->first())->name}}
+                                        <small>Desde {{ auth()->user()->created_at->format('d/M/Y')}}</small>
                                     </p>
                                 </li>
                                 <!-- Menu Body -->

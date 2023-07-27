@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
-class PostRequest extends FormRequest
+use Illuminate\Validation\Rule;
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,12 +21,15 @@ class PostRequest extends FormRequest
      */
     public function rules(): array
     {
-        return  dd([
-            'title'=>'required',
-            'excerpt'=>'required',
-            'body'=>'required',
-            'category_id'=>'required',
-            'tags'=>'required'
-        ]);
+        //dd($this->route('user')->id);
+        $rules =[
+            'name'=> 'required',
+            'email'=>['required', Rule::unique('users')->ignore($this->route('user')->id)]
+        ];
+
+        if ($this->filled('password')){
+            $rules['password']= ['confirmed','min:6'];
+        }
+        return $rules;
     }
 }

@@ -40,7 +40,7 @@ class PostSeeder extends Seeder
         $post->body = '<p>Contenido de mi tercer Post</p>';
         $post->published_at = Carbon::now()->subDays(3);
         $post->category_id = 1;
-        $post->user_id = 1;
+        $post->user_id = 2;
         $post->save();
 
         $post = new Post;
@@ -49,7 +49,7 @@ class PostSeeder extends Seeder
         $post->body = '<p>Contenido de mi cuarta Post</p>';
         $post->published_at = Carbon::now()->subDays(1);
         $post->category_id = 2;
-        $post->user_id = 1;
+        $post->user_id = 2;
         $post->save();
     }
 }

@@ -2,7 +2,7 @@
     <li class="header">Navegacion</li>
     <!-- Optionally, you can add icons to the links -->
     <li {{ request()->is('admin') ? 'class=active': '' }}>
-      <a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i> <span>Inicio</span></a>
+      <a href="{{route('admin.dashboard')}}"><i class="fa fa-dashboard"></i> <span>Inicio</span></a>
     </li>
     <li class="treeview {{ request()->is('admin/posts*') ? 'active': '' }}">
       <a href="#"><i class="fa fa-bars"></i> <span>Blog</span>

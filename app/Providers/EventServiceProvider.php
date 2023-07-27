@@ -10,6 +10,7 @@ use App\Models\Photo;
 use App\Models\Post;
 use App\Observers\PhotoObserver;
 use App\Observers\PostObserver;
+
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -26,6 +27,7 @@ class EventServiceProvider extends ServiceProvider
         Photo::class =>[PhotoObserver::class],
         Post::class =>[PostObserver::class],
     ];
+   
     /**
      * Register any events for your application.
      */

@@ -35,11 +35,7 @@
 
             <footer class="container-flex space-between">
                 @include('partials.social-links')
-                <div class="tags container-flex">
-                    @foreach ($post->tags as $tag)
-                        <span class="tag c-gray-1 text-capitalize"># {{ $tag->name }}</span>
-                    @endforeach
-                </div>
+                @include('posts.tags')
             </footer>
             <div class="comments">
                 <div class="divider"></div>

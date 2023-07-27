@@ -31,30 +31,17 @@
                 @endif
 
                 <div class="content-post">
-                    <header class="container-flex space-between">
-                        <div class="date">
-                            <span class="c-gray-1">{{ $post->published_at->format('M d') }} / {{ $post->owner->name}}</span>
-                        </div>
-                        <div class="post-category">
-                            <span class="category text-capitalize">
-                                <a
-                                    href="{{ route('categories.show', $post->category) }}">{{ $post->category->name }}</a></span>
-                        </div>
-                    </header>
+
+                    @include('posts.header')
+                    
                     <h1>{{ $post->title }}</h1>
                     <div class="divider"></div>
                     <p>{{ $post->excerpt }}</p>
                     <footer class="container-flex space-between">
                         <div class="read-more">
-                            <a href="blog/{{ $post->url }}" class="text-uppercase c-green">read more</a>
+                            <a href=" {{route('posts.show',$post)}}" class="text-uppercase c-green">read more</a>
                         </div>
-                        <div class="tags container-flex">
-                            @foreach ($post->tags as $tag)
-                                <span class="tag c-gray-1 text-capitalize"><a href="{{ route('tags.show', $tag) }}"> #
-                                        {{ $tag->name }}</a></span>
-                            @endforeach
-
-                        </div>
+                        @include('posts.tags')
                     </footer>
                 </div>
             </article>

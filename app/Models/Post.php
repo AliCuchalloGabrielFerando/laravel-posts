@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\Tag;
@@ -39,6 +38,15 @@ class Post extends Model
         $query->whereNotNull('published_at')
         ->where('published_at','<=',Carbon::now())
         ->latest('published_at');
+    }
+
+    public function scopeAllowed(Builder $query)
+    {
+        if(auth()->user()->can('view',$this)){
+            return $query;
+        }
+        
+        return $query->where('user_id',auth()->id());
     }
 
     public function isPublished()

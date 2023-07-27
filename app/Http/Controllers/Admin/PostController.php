@@ -14,7 +14,7 @@ class PostController extends Controller
 {
     public function index(){
 
-        $posts = Post::all();
+        $posts = Post::allowed()->get();
 
         return view('admin.posts.index',compact('posts'));
     }
@@ -35,13 +35,16 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
+        $this->authorize('update',$post);
         $categories = Category::all();
         $tags = Tag::all();
         return view('admin.posts.edit',compact('categories','tags','post'));
     }
     public function update(Post $post,PostRequest $request)
     {
-        $post->update($request->all());
+        $this->authorize('update',$post);
+
+        $post->update($request->validated());
 
         $post->syncTags($request->get('tags'));
 
@@ -50,7 +53,8 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        
+        $this->authorize('delete',$post);
+
         $post->delete();
 
         return redirect()->route('admin.posts.index',$post)->with('flash','La publicacion ha sido eliminada');

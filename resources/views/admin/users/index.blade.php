@@ -2,50 +2,52 @@
 
 @section('header')
     <h1>
-        Posts
+        USUARIOS
         <small>Listados</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li class="active">Posts</li>
+        <li class="active">Usuarios</li>
     </ol>
 @endsection
 @section('content')
     <div class="box box-primary">
         <div class="box-header">
-            <h3 class="box-title">Listado de Publicaciones</h3>
+            <h3 class="box-title">Listado de Usuarios</h3>
             <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal"><i
-                    class="fa fa-plus"></i> Crear Publicacion</button>
+                    class="fa fa-plus"></i> Crear Usuario</button>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <table id="posts-table" class="table table-bordered table-striped">
+            <table id="users-table" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Titulo</th>
-                        <th>Extracto</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Roles</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($posts as $post)
+                    @foreach ($users as $user)
                         <tr>
-                            <td>{{ $post->id }}</td>
-                            <td>{{ $post->title }}</td>
-                            <td>{{ $post->excerpt }}</td>
+                            <td>{{ $user->id }}</td>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>{{ $user->getRoleNames()->implode(', ') }}</td>
                             <td>
-                                <a href="{{ route('posts.show', $post) }}" class="btn btn-xs btn-default" target="_blank">
+                                <a href="{{ route('admin.users.show', $user) }}" class="btn btn-xs btn-default">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-xs btn-info">
+                                <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-xs btn-info">
                                     <i class="fa fa-pencil"></i>
                                 </a>
-                                <form method="POST" action="{{ route('admin.posts.destroy', $post) }}"
+                                <form method="user" action="{{ route('admin.users.destroy', $user) }}"
                                     style="display: inline">
                                     @csrf @method('DELETE')
                                     <button class="btn btn-xs btn-danger"
-                                        onclick="return confirm('¿Esta seguro de Eliminar la Publicacion?')">
+                                        onclick="return confirm('¿Esta seguro de Eliminar al Usuario?')">
                                         <i class="fa fa-times"></i>
                                     </button>
                                 </form>
@@ -72,23 +74,10 @@
     <script src="/adminlte/plugins/datatables/dataTables.bootstrap.min.js"></script>
     <script>
         $(function() {
-            $('#posts-table').DataTable();
+            $('#users-table').DataTable();
         });
     </script>
     
 @endpush
 
-<!--
-   <script>
-       $(function() {
-           $('#posts-table').DataTable({
-               "paging": true,
-               "lengthChange": false,
-               "searching": false,
-               "ordering": true,
-               "info": true,
-               "autoWidth": false
-           });
-       });
-   </script>
--->
+
