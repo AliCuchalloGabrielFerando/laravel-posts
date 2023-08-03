@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
@@ -54,5 +55,19 @@ class User extends Authenticatable implements MustVerifyEmail
         return Attribute::make(
             set: fn(string $password)=>  bcrypt($password),
         );
+    }
+
+    public function scopeAllowed(Builder $query)
+    {
+        if(auth()->user()->can('view',$this)){
+            return $query;
+        }
+        
+        return $query->where('id',auth()->id());
+    }
+
+    public function getRoleDisplayNames()
+    {
+        return $this->roles->pluck('display_name')->implode(', ');
     }
 }

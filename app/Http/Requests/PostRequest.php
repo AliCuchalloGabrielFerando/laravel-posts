@@ -21,12 +21,41 @@ class PostRequest extends FormRequest
      */
     public function rules(): array
     {
-        return  dd([
+        return  [
             'title'=>'required',
             'excerpt'=>'required',
             'body'=>'required',
+            'published_at'=>'required',
             'category_id'=>'required',
             'tags'=>'required'
-        ]);
+        ];
     }
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    /*
+    public function messages(): array
+    {
+    return [
+        'title.required' => 'A title is required',
+        'body.required' => 'A message is required',
+    ];
+    }
+    */
+    /**
+ * Get custom attributes for validator errors.
+ *
+ * @return array<string, string>
+ */
+/*
+public function attributes(): array
+{
+    return [
+        'email' => 'email address',
+    ];
+}
+*/
+    
 }

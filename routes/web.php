@@ -9,11 +9,12 @@ use App\Http\Controllers\Admin\PhotoController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\UserRolesController;
 use App\Http\Controllers\Admin\UserPermissionsController;
 use Illuminate\Support\Facades\Route;
 
-
+use App\Mail\LoginCredentials;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,19 +35,25 @@ Route::get('blog/{post}',[PostsController::class,'show'])->name('posts.show');
 Route::get('categorias/{category}',[CategoryController::class,'show'])->name('categories.show');
 Route::get('tags/{tag}',[TagController::class,'show'])->name('tags.show');
 
-/*Route::get('admin',function(){
-    return view('admin.dashboard');
-});*/
+Route::get('email',function(){ 
+    return new LoginCredentials(App\Models\User::first(),'123456789');
+});
+
 //Route::group(['prefix'=>'admin', 'middleware'=>['auth','verified']], function(){
-    //
 //Route::prefix('admin')->name('admin.')->middleware(['auth','verified'])->group(function(){
+    
 Route::group(['prefix'=>'admin','as'=>'admin.', 'middleware'=>['auth','verified']], function(){
     Route::get('/',[AdminController::class,'index'])->name('dashboard');
 
     Route::resource('posts',PostController::class)->except(['show']);
     Route::resource('users',UsersController::class);
-    Route::put('users/{user}/roles',[UserRolesController::class,'update'])->name('users.roles.update');
-    Route::put('users/{user}/permissions',[UserPermissionsController::class,'update'])->name('users.permissions.update');
+    Route::resource('roles',RolesController::class);
+
+    Route::middleware('role:Admin')->put('users/{user}/roles',[UserRolesController::class,'update'])
+        ->name('users.roles.update');
+        
+    Route::middleware('role:Admin')->put('users/{user}/permissions',[UserPermissionsController::class,'update'])
+        ->name('users.permissions.update');
 
     /*
     Route::get('posts',[PostController::class, 'index'])->name('admin.posts.index');

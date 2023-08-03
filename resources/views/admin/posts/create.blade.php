@@ -29,7 +29,7 @@
 </div>
 @push('scripts')
 <script> 
-    if (window.location.hash ==='#create')
+    if (window.location.hash ==='#create' && {{request()->is('admin/posts/*')}})
       {
         $('#exampleModal').modal('show');
       }

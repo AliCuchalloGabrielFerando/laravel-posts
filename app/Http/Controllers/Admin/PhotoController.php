@@ -19,6 +19,7 @@ class PhotoController extends Controller
         $post->photos()->create([
             'url'=> Storage::url(request()->file('photo')->store('post','public'))
         ]);
+        
         return $post->photos;
     }
     public function destroy(Photo $photo)

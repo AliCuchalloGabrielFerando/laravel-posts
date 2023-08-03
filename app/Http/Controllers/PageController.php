@@ -7,9 +7,10 @@ use App\Models\Post;
 
 class PageController extends Controller
 {
-    public function home(){
-        $posts = Post::published()->paginate(1);
-    return view('pages.home',['posts'=>$posts]);
+    public function home()
+    {
+        $posts = Post::published()->paginate(2);
+        return view('pages.home',['posts'=>$posts]);
     }
 
     public function about()

@@ -20,8 +20,10 @@ return new class extends Migration
             $table->mediumText('iframe')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->unsignedInteger('category_id')->nullable();
-            $table->unsignedInteger('user_id');
+            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
+
+          //  $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

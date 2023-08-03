@@ -25,10 +25,20 @@ class UserSeeder extends Seeder
         $updatePostsPermission = Permission::create(['name'=>'Update posts']);
         $deletePostsPermission = Permission::create(['name'=>'Delete posts']);
 
-        $adminRole = Role::create(['name' => 'Admin']);
-        $writeRole = Role::create(['name' => 'Writer']);
+        $viewUsersPermission = Permission::create(['name'=>'View users']);
+        $createUsersPermission = Permission::create(['name'=>'Create users']);
+        $updateUsersPermission = Permission::create(['name'=>'Update users']);
+        $deleteUsersPermission = Permission::create(['name'=>'Delete users']);
+        $updateRolesPermission = Permission::create(['name'=>'Update roles']);
 
         $permission = Permission::create(['name' => 'edit articles']);
+
+        $adminRole = Role::create(['name' => 'Admin']);
+        $writeRole = Role::create(['name' => 'Writer']);
+        
+        $adminRole->givePermissionTo(Permission::all());
+        $writeRole->givePermissionTo(['View posts','Create posts','Update posts','Delete posts','edit articles']);
+
 
         $user = new User;
         $user->name = 'root';

@@ -2,52 +2,54 @@
 
 @section('header')
     <h1>
-        USUARIOS
+        ROLES
         <small>Listados</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.dashboard') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li class="active">Usuarios</li>
+        <li class="active">Roles</li>
     </ol>
 @endsection
 @section('content')
     <div class="box box-primary">
         <div class="box-header">
-            <h3 class="box-title">Listado de Usuarios</h3>
-            <a href="{{ route('admin.users.create', '#create') }}" class="btn btn-primary pull-right"><i
-                    class="fa fa-plus"></i> Crear Usuario</a>
+            <h3 class="box-title">Listado de Roles</h3>
+            <a href="{{route('admin.roles.create')}}" class="btn btn-primary pull-right" ><i
+                    class="fa fa-plus"></i> Crear Rol</a>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <table id="users-table" class="table table-bordered table-striped">
+            <table id="roles-table" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Identificador</th>
                         <th>Nombre</th>
-                        <th>Email</th>
-                        <th>Roles</th>
+                        <th>Guard</th>
+                        <th>Permisos</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($users as $user)
+                    @foreach ($roles as $role)
                         <tr>
-                            <td>{{ $user->id }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>{{ $user->getRoleNames()->implode(', ') }}</td>
+                            <td>{{ $role->id }}</td>
+                            <td>{{ $role->name }}</td>
+                            <td>{{ $role->display_name }}</td>
+                            <td>{{ $role->guard_name }}</td>
+                            <td>{{ $role->permissions->pluck('display_name')->implode(', ') }}</td>
                             <td>
-                                <a href="{{ route('admin.users.show', $user) }}" class="btn btn-xs btn-default">
+                                <a href="{{ route('admin.roles.show', $role) }}" class="btn btn-xs btn-default">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-xs btn-info">
+                                <a href="{{ route('admin.roles.edit', $role) }}" class="btn btn-xs btn-info">
                                     <i class="fa fa-pencil"></i>
                                 </a>
-                                <form method="user" action="{{ route('admin.users.destroy', $user) }}"
+                                <form method="POST" action="{{ route('admin.roles.destroy', $role) }}"
                                     style="display: inline">
                                     @csrf @method('DELETE')
                                     <button class="btn btn-xs btn-danger"
-                                        onclick="return confirm('¿Esta seguro de Eliminar al Usuario?')">
+                                        onclick="return confirm('¿Esta seguro de Eliminar al Rol?')">
                                         <i class="fa fa-times"></i>
                                     </button>
                                 </form>
@@ -74,8 +76,10 @@
     <script src="/adminlte/plugins/datatables/dataTables.bootstrap.min.js"></script>
     <script>
         $(function() {
-            $('#users-table').DataTable();
+            $('#roles-table').DataTable();
         });
     </script>
     
 @endpush
+
+
